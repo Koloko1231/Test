@@ -1,0 +1,164 @@
+{% assign min = 19879 %}
+{% assign max = 1987919879 %}
+{% assign diff = max | minus: min %}
+{% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min | append: "" %}
+{% assign divID = "price-indication-" | plus: randomNumber %}
+
+<div class="price-indication" id="{{ divID }}">
+<script>
+if (typeof lastUrl === "undefined"){
+let lastUrl = location.href; 
+new MutationObserver(() => {
+  const url = location.href;
+  if (url !== lastUrl) {
+    lastUrl = url;
+    onUrlChange();
+  }
+}).observe(document, {subtree: true, childList: true});
+}
+function onUrlChange() {
+  const url = new URL(location.href);
+  const new_variant=url.searchParams.get('variant');
+  console.log(new_variant);
+  getData(new_variant)
+  
+}
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+  }
+}
+
+async function fetchDataFromServer(new_variant){
+  var payload;
+    if (new_variant===""){
+      payload = {
+        id: '{{product.id}}',
+        variant_id: '{{ product.selected_or_first_available_variant.id }}'
+      };
+    }else {
+      payload = {
+        id: '{{product.id}}',
+        variant_id: new_variant
+      };
+    }
+  const res= await fetch("/apps/search-class", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(function(res) {
+        return res.json();
+  });
+  if (res && Object.keys(res).length === 0 && Object.getPrototypeOf(res) === Object.prototype){
+    return undefined;
+  }else{
+    return res;
+  }
+}
+  
+function fetchDataFromMetafields(new_variant){
+  try {
+    let shop_data={{ shop.metafields.price_settings.settings }}
+  for (let template in shop_data.templateInfo) {
+    if (shop_data.fonts[shop_data.templateInfo[template].fontFamily] === undefined) {
+      shop_data.templateInfo[template].fontFamily = "";
+    } else {
+      shop_data.templateInfo[template].fontFamily = shop_data.fonts[shop_data.templateInfo[template].fontFamily];
+    }
+  }
+    delete shop_data.fonts;
+    let product_data={{ product.metafields.price_indication.productInfo }}
+    let variant_id=(new_variant==="")?'{{ product.selected_or_first_available_variant.id }}':new_variant
+    let variant = product_data.variants.filter(vart => vart.variant_id === variant_id)[0];
+    delete variant.variant_id;
+    delete product_data.variants;
+    res={data:{...shop_data, ...product_data, ...variant} };
+    return res;
+  }
+  catch(e){
+    console.log(e);
+    return undefined
+  }
+}
+
+async function getData(new_variant) {
+  
+  try{
+    if ('{{ product.gift_card? }}' === 'true' || '{{product.id}}' === '' || '{{ template.name }}' === '') {
+      return;
+    }
+    let res;
+    res = fetchDataFromMetafields(new_variant);
+    if (res === undefined){
+      res = await fetchDataFromServer(new_variant);  
+    }
+    if (res === undefined ){
+      return;
+    }
+    
+      
+    compare_price = res.data.compare_price;
+    current_price = res.data.current_price;
+
+      if (res.data.showLowestPriceBoxValue === false && ( (res.data.templatePresence.includes("product") && 'product' === '{{ template.name }}') || (res.data.templatePresence.includes("collection") && 'collection' === '{{ template.name }}') || (res.data.templatePresence.includes("cart") && 'cart' === '{{ template.name }}') || (res.data.templatePresence.includes("index") && 'index' === '{{ template.name }}') ) && (compare_price !== null || (compare_price === null && res.data.showProductSaleStatus === true) ) ) {
+          let priceElement= (new_variant==="")?document.getElementById("{{ divID }}"):document.getElementsByClassName("price-indication")[0];
+          const PriceindicationElement = document.createElement('p');
+          if (res.data.templateInfo['{{ template.name }}']['iconFileContent'] !== ""){
+            var image = new Image();
+            image.src= res.data.templateInfo['{{ template.name }}']['iconFileContent'];
+            image.width = res.data.templateInfo['{{ template.name }}']['fontSize']
+            image.height = res.data.templateInfo['{{ template.name }}']['fontSize']
+            PriceindicationElement.append(image);
+          }
+          PriceindicationElement.style.textAlign= res.data.templateInfo['{{ template.name }}']['textAlignment'];
+          if (res.data.Period === '1') {
+              PriceindicationElement.innerHTML += ` ${res.data.templateInfo['{{ template.name }}']['previewLowestPriceOf']} ${res.data.templateInfo['{{ template.name }}']['previewDay']} ${res.data.templateInfo['{{ template.name }}']['previewWas']} ${parseFloat(res.data.lowest_price_x_days).toFixed(2).toString().replace(".",",")} {{ cart.currency.symbol }}`;
+          } else {
+              PriceindicationElement.innerHTML += ` ${res.data.templateInfo['{{ template.name }}']['previewLowestPriceWithin']} ${res.data.Period} ${res.data.templateInfo['{{ template.name }}']['previewDays']} ${res.data.templateInfo['{{ template.name }}']['previewWas']} ${parseFloat(res.data.lowest_price_x_days).toFixed(2).toString().replace(".",",")} {{ cart.currency.symbol }}`;
+          }
+          var newStyle = document.createElement('style');
+          newStyle.appendChild(document.createTextNode("\
+          @font-face {\
+              font-family: price-indication-font;\
+              src: url('" + res.data.templateInfo['{{ template.name }}']['fontFamily'] + "');\
+          }\
+          .price-indication-font {font-family: price-indication-font !important}\
+          "));
+          
+          document.head.appendChild(newStyle);
+          PriceindicationElement.classList.add("price-indication-font");
+          PriceindicationElement.style.fontSize = `${res.data.templateInfo['{{ template.name }}']['fontSize']}px`;
+          PriceindicationElement.style.color = res.data.templateInfo['{{ template.name }}']['textFontColor'];
+          if (res.data.templateInfo['{{ template.name }}']['showBackgroundColor']) {
+              PriceindicationElement.style.backgroundColor = res.data.templateInfo['{{ template.name }}']['backgroundColor'];
+          }
+          PriceindicationElement.style.padding = `${res.data.templateInfo['{{ template.name }}']['backgroundPaddingTopBottom']}px ${res.data.templateInfo['{{ template.name }}']['backgroundPaddingLeftRight']}px ${res.data.templateInfo['{{ template.name }}']['backgroundPaddingTopBottom']}px ${res.data.templateInfo['{{ template.name }}']['backgroundPaddingLeftRight']}px`;
+          PriceindicationElement.style.margin = `${res.data.templateInfo['{{ template.name }}']['backgroundMarginTop']}px ${res.data.templateInfo['{{ template.name }}']['backgroundMarginRight']}px ${res.data.templateInfo['{{ template.name }}']['backgroundMarginBottom']}px ${res.data.templateInfo['{{ template.name }}']['backgroundMarginLeft']}px`;
+          PriceindicationElement.style.borderRadius = `${res.data.templateInfo['{{ template.name }}']['cornerRadius']}px`;
+          if (res.data.selectadditShowPercentage === "always" || (res.data.selectadditShowPercentage === "lowerEqual" && parseFloat(res.data.lowest_price_x_days) >= current_price) || (res.data.selectadditShowPercentage === "higher" && parseFloat(res.data.lowest_price_x_days) < current_price)) {
+              var percentageElement = document.createElement('span');
+              percentageElement.textContent = `  ${parseFloat(current_price) === parseFloat(res.data.lowest_price_x_days) ? "(0%)":  parseFloat(current_price) > parseFloat(res.data.lowest_price_x_days) ? "(+"+ (parseFloat(parseFloat(current_price)/parseFloat(res.data.lowest_price_x_days)-1)*100).toFixed(2) +"%)" : "(-"+(parseFloat(1-parseFloat(current_price)/parseFloat(res.data.lowest_price_x_days))*100).toFixed(2) +"%)"}`;
+              if (parseFloat(current_price) > parseFloat(res.data.lowest_price_x_days)) {
+                  percentageElement.style.color = res.data.templateInfo['{{ template.name }}']['increasedPercentageFontColor']
+              } else {
+                  percentageElement.style.color = res.data.templateInfo['{{ template.name }}']['decreasedPercentageFontColor']
+              }
+              PriceindicationElement.append(percentageElement);
+          }
+          removeAllChildNodes(priceElement);
+          priceElement.append(PriceindicationElement);
+      } else {
+          console.log("product is not qualified to display price indication");
+      }
+    
+    }catch (err){
+      //pass;
+    console.log(err);
+    }
+}
+getData("");
+</script></div>

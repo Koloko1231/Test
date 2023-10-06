@@ -1,0 +1,28 @@
+{% schema %}
+  {
+    "name": "Product Description",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Default",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}
+
+{% assign modified_description = product.description | remove: 'data-section-type="product"' %}
+<div class="container">
+<div class="card">
+  <div class="card__header" id="opis_izdelka">
+    <h2 class="card__title heading h3">Opis izdelka</h2>
+  </div>
+
+  <div class="card__section ">
+    <div class="rte text--pull">
+      <meta charset="utf-8">
+      {{ modified_description }}
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,30 @@
+<ul class="collection__filter-linklist kolekcija">
+  {%- for link in quick_links_menu.links -%}
+    <li>
+      {%- if link.active or link.child_active -%}
+        {%- capture link_id -%}filter-{% increment link_id %}{%- endcapture -%}
+
+       
+
+          <ul class="kategorija-cel collection__filter-linklist">
+            {%- for sub_link in link.links -%}
+              <li>
+            {% if sub_link.object.image %}
+  <a href="{{ sub_link.url }}" class="kategorija collection__filter-link link link--primary napis_slika {% if sub_link.active %}is-active{% endif %}">
+    <div>
+              <img src="{{ sub_link.object.image | img_url: 'medium' }}" alt="{{ sub_link.title }}" class="collection-image ikonce_10" loading="lazy"></div>
+    {{ sub_link.title }} 
+  </a>
+{% endif %}
+              </li>
+            {%- endfor -%}
+          </ul>
+      
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>
+
+
+
+

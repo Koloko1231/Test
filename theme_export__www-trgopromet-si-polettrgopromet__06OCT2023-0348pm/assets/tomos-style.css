@@ -1,0 +1,186 @@
+.kategorije-spodaj-1{display:grid;grid-template-columns: repeat(4, 1fr);gap: 10px 15px;}
+.napis_slika:hover {
+    text-decoration: underline;
+}
+@media screen and (max-width: 641px){
+  .kategorije-spodaj-1{grid-template-columns:1fr 1fr 1fr;gap:7px;}
+  .slika_subkategorije{width:100px;height:105px;padding:7px}
+  .napis_slika{font-size:14px}
+}
+  a.kategorija-filter-kolekcija.is-active {color: var(--accent-color)!important;}
+              .kategorija-spodaj-2.is-active {color: var(--product-on-sale-accent)!important;}
+/*.kategoija-after:before {
+    width: 100%;
+    background: #00000005;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    content: "";
+    position: absolute;
+    border-bottom: solid 1px var(--border-color);
+}
+  
+.kategoija-after {
+    width: 100%;
+    position: relative;
+    margin-bottom: 8px;
+}*/
+
+
+
+
+
+.\31 collection-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+  margin-bottom:45px
+}
+
+.collection-item.\31kategorija{
+  background:white;
+border-radius: 5px;
+    border: 1px solid rgba(128,128,128,.35);
+    box-shadow: 0 1px 4px #8080801c;
+    text-align: -webkit-center;
+    width: 100%;}
+ .collection-item.\31kategorija, button#appendTo {position: relative;line-height: normal;}
+.collection-item.\31kategorija:hover{text-decoration: underline;}
+a.collection-item.\31kategorija::after
+{background-color:#00000007;
+top:0;
+bottom:0;
+right:0;
+left:0;
+content:"";
+position:absolute;
+z-index:1}
+
+a.collection-item.\31 kategorija{margin:0}
+.collection-item__image-wrapper.\31slika {width: 135px;height: 123px;}
+@media screen and (max-width: 1200px){.\31 collection-list{grid-template-columns:1fr 1fr 1fr }}
+@media screen and (max-width: 641px){.\31 collection-list{grid-template-columns:1fr 1fr;gap:10px} .ostali-tomos {grid-column: 1 / span 2;}}   
+
+
+
+
+.celota {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-around;
+}
+.glavna-kategorija {
+    align-items: center;
+    background: white;
+    border: 1px solid rgb(210, 210, 210);
+}
+.collection-item__image-wrapper {
+    width: 77px;
+  margin:0;
+}
+
+
+.glavna-kategorija {
+  text-align: -webkit-center;
+    align-items: center;
+    background: #eeeeee;
+}
+
+div#myDIV1 {
+  padding-top:10px;padding-bottom:10px;
+}
+
+
+
+
+
+  /*
+  .collection-item__image-wrapper{width:75px;margin-right:20px}
+  a.trojna.glavna-kategorija{display:flex} 
+
+ a.trojna.glavna-kategorija::after {
+    background-color: #0000000a;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    content: "";
+    position: absolute;}
+span.collection-item__title.text--strong{z-index:1}
+*/
+
+}
+
+.prva_slikica.collection-item__image-wrapper {
+    max-width: 77px;
+}
+
+a.collection__filter-link.link.link--primary4 {
+    font-weight: 600;
+}
+
+.celota:hover{background:#f1f3f4}
+a.trojna.glavna-kategorija:hover{text-decoration:underline}
+.glavna-kategorija{position:relative}
+a.celota.glavna-kategorija {border-radius: 5px;max-width:100%;box-shadow: 0 1px 2px 1px #00000025;border-radius: 10px;}
+.spodnje{margin-top:-5px;background:#fafafa}
+.collection-item__title{transform:unset}
+
+
+.collection__header-inner {display: grid;grid-template-columns: 1fr 1fr;align-items: center;}
+
+.spodnje {
+    grid-column: 1 / span 2;margin-top:-10px
+}
+
+
+@media screen and (max-width: 641px){
+.collection__header-inner {
+display:block}
+}
+
+.slikca.collection-item__image-wrapper {
+    width: 140px;
+    padding: 8px;
+}
+.card__header.card__header--tight.card{padding-top:10px;padding-bottom:20px}
+
+.trojna.glavna-kategorija, .collection-item.\31 kategorija{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.dolga-kategorija {
+    
+    grid-column: 1 / span 4;flex-direction: row!important;justify-content: center;;padding-top: 5px;gap:10px;
+}
+
+@media screen and (max-width: 641px){
+ .dolga-kategorija{grid-column: 1 / span 2
+                  }
+  .card__header.card__header--tight.card{padding-top:15px;padding-bottom:15px}
+
+
+
+
+  
+}
+.slikazadolgi{width:90px!important}
+
+
+}
+
+
+.gumb_tomos {
+    padding-bottom: 35px;
+}
+
+
+  .card__header {padding: 10px 10px 17px 10px;}
+.collection-item__image-wrapper.\31 slika {
+    width: 135px;
+    height: 123px;
+}

@@ -1,0 +1,559 @@
+<style><!--
+.abs {
+        border: 2px solid blue;
+      }
+      .material-image {
+        width: 50px;
+        height: 50px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+box-shadow:0px 0px 0px 2px #959595;;
+      }
+
+
+
+input#width.is-filled {
+    color: #3f51b5!important;
+    font-weight: bold;
+text-align: right;
+}
+
+
+input#width, input#length {
+  height: 35px;
+  text-align: right;
+  text-indent: 5px;
+  border-radius: 5px;
+  border: solid 1.5px #D3D3D3;
+  -webkit-transition: 1s; /* Safari */
+  transition: 1s;margin-bottom:10px
+}
+input[type=text]:hover{
+  box-shadow: 0 0 5pt 0.5pt #D3D3D3;
+}
+input[type=text]:focus {
+  box-shadow: 0 0 5pt 2pt #D3D3D3;
+  outline-width: 0px;
+}
+
+
+
+
+
+input#length.is-filled {
+    color: #3f51b5!important;
+    font-weight: bold;
+text-align: right;
+}
+
+.vodoravni { display: flex;
+    flex-direction: row;
+    gap: 33px;}
+@media screen and (max-width: 641px){
+tr{
+font-size: 11px;
+ word-break: normal;
+}
+}
+input {
+    margin-right: 10px;
+}
+--></style>
+
+
+<div class="zgoraj">
+<script>// <![CDATA[
+var shelves = [];
+      
+    function updateSquare() {
+      var length = parseFloat(document.getElementById("length").value);
+      var width = parseFloat(document.getElementById("width").value);
+      var material = document.getElementById("material").value;
+      var leftChecked = document.getElementById("left").checked;
+      var rightChecked = document.getElementById("right").checked;
+      var topChecked = document.getElementById("top").checked;
+      var bottomChecked = document.getElementById("bottom").checked;
+      var square = document.getElementById("square");
+
+      square.style.width = length + "px";
+      square.style.height = width + "px";
+      var materialImage = "";
+      var pricePerSquareMeter = 10;
+      
+      if (material === "Iveral beli 18mm") {
+        pricePerSquareMeter = 15;
+        materialImage = "url('images/Iveral_beli_18mm.jpg')";
+      } else if (material === "Iveral hrast 18mm") {
+        pricePerSquareMeter = 20;
+        materialImage = "url('images/Iveral_hrast_18mm.jpg')";
+      } else if (material === "Lesomal beli") {
+        pricePerSquareMeter = 25;
+        materialImage = "url('images/Lesomal_beli.jpg')";
+      } else if (material === "Iveral beli 8mm") {
+        pricePerSquareMeter = 12;
+        materialImage = "url('images/Iveral_beli_8mm.jpg')";
+      } else if (material === "Iveral beli 25mm") {
+        pricePerSquareMeter = 18;
+        materialImage = "url('images/Iveral_beli_25mm.jpg')";
+      }
+      
+      square.style.backgroundImage = materialImage;
+      
+      if (leftChecked) {
+        square.style.borderLeft = "5px solid blue";
+      } else {
+        square.style.borderLeft = "none";
+      }
+      
+      if (rightChecked) {
+        square.style.borderRight = "5px solid blue";
+      } else {
+        square.style.borderRight = "none";
+      }
+      
+      if (topChecked) {
+        square.style.borderTop = "5px solid blue";
+      } else {
+        square.style.borderTop = "none";
+      }
+      
+      if (bottomChecked) {
+        square.style.borderBottom = "5px solid blue";
+      } else {
+        square.style.borderBottom = "none";
+      }
+    }
+
+
+    function updateSquare() {
+      var length = parseFloat(document.getElementById("length").value);
+      var width = parseFloat(document.getElementById("width").value);
+      var material = document.getElementById("material").value;
+      var leftChecked = document.getElementById("left").checked;
+      var rightChecked = document.getElementById("right").checked;
+      var topChecked = document.getElementById("top").checked;
+      var bottomChecked = document.getElementById("bottom").checked;
+      var square = document.getElementById("square");
+ square.style.width = (length * 0.017) + "vmax";
+      square.style.height = (width * 0.017) + "vmax";
+      var materialImage = "";
+      var pricePerSquareMeter = 0;
+      
+      if (material === "Iveral beli 18mm") {
+        pricePerSquareMeter = 40;
+        materialImage = "url('https://cdn.shopify.com/s/files/1/0560/1460/2426/files/beli_iveral.jpg?v=1676299420')";
+      } else if (material === "Iveral hrast 18mm") {
+        pricePerSquareMeter = 60;
+        materialImage = "url('https://cdn.shopify.com/s/files/1/0560/1460/2426/files/iveral_hrast_18mm.jpg?v=1676226253')";
+      } else if (material === "Lesomal beli") {
+        pricePerSquareMeter = 20;
+        materialImage = "url('https://cdn.shopify.com/s/files/1/0560/1460/2426/files/beli_iveral.jpg?v=1676299420')";
+      } else if (material === "Iveral beli 8mm") {
+        pricePerSquareMeter = 40;
+        materialImage = "url('https://cdn.shopify.com/s/files/1/0560/1460/2426/files/beli_iveral.jpg?v=1676299420')";
+      } else if (material === "Iveral beli 25mm") {
+        pricePerSquareMeter = 80;
+        materialImage = "url('https://cdn.shopify.com/s/files/1/0560/1460/2426/files/beli_iveral.jpg?v=1676299420')";
+      }
+      
+      square.style.backgroundImage = materialImage;
+      square.style.backgroundSize = "cover";
+      
+      if (leftChecked) {
+        square.style.borderLeft = "5px solid blue";
+      } else {
+        square.style.borderLeft = "none";
+      }
+      
+      if (rightChecked) {
+        square.style.borderRight = "5px solid blue";
+      } else {
+        square.style.borderRight = "none";
+      }
+      
+      if (topChecked) {
+        square.style.borderTop = "5px solid blue";
+      } else {
+        square.style.borderTop = "none";
+      }
+      
+      if (bottomChecked) {
+        square.style.borderBottom = "5px solid blue";
+      } else {
+        square.style.borderBottom = "none";
+      }
+    }
+
+
+      
+      function calculatePrice() {
+  var length = parseFloat(document.getElementById("length").value);
+  var width = parseFloat(document.getElementById("width").value);
+  var material = document.getElementById("material").value;
+  var pricePerSquareMeter = 0;
+
+  if (material === "Iveral beli 18mm") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 60;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 35;
+    } else {
+      pricePerSquareMeter = 30;
+    }
+  } else
+ if (material === "Iveral hrast 18mm") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 60;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 40;
+    } else {
+      pricePerSquareMeter = 35;
+    }
+  } else 
+if (material === "Lesomal beli") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 20;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 10;
+    } else {
+      pricePerSquareMeter = 10;
+    }
+  }
+else if (material === "Iveral beli 8mm") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 58;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 38;
+    } else {
+      pricePerSquareMeter = 34;
+    }
+  }
+else if (material === "Iveral beli 25mm") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 70;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 50;
+    } else {
+      pricePerSquareMeter = 40;
+    }
+  }
+  var leftChecked = document.getElementById("left").checked;
+  var rightChecked = document.getElementById("right").checked;
+  var topChecked = document.getElementById("top").checked;
+  var bottomChecked = document.getElementById("bottom").checked;
+  var totalPrice = (length * width / 1000000) * pricePerSquareMeter;
+
+  if (totalPrice < 10) {
+    totalPrice = 10;
+  }
+
+  var side = "";
+  if (leftChecked) {
+    totalPrice = totalPrice + (width * 2.5 / 1000);
+    side = side + "Levi ";
+  }
+  if (rightChecked) {
+    totalPrice = totalPrice + (width * 2.5 / 1000);
+    side = side + "Desni ";
+  }
+  if (topChecked) {
+    totalPrice = totalPrice + (length * 2.5 / 1000);
+    side = side + "Zgoraj ";
+  }
+  if (bottomChecked) {
+    totalPrice = totalPrice + (length * 2.5 / 1000);
+    side = side + "Spodaj ";
+  }
+
+  document.getElementById("price").innerHTML = "Cena: " + totalPrice + "€";
+}
+
+      
+     function saveShelf() {
+  var length = parseFloat(document.getElementById("length").value);
+  var width = parseFloat(document.getElementById("width").value);
+  var material = document.getElementById("material").value;
+  var leftChecked = document.getElementById("left").checked;
+  var rightChecked = document.getElementById("right").checked;
+  var topChecked = document.getElementById("top").checked;
+  var bottomChecked = document.getElementById("bottom").checked;
+  var pricePerSquareMeter = 0;
+
+  if (material === "Iveral beli 18mm") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 60;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 35;
+    } else {
+      pricePerSquareMeter = 30;
+    }
+  } else if (material === "Iveral hrast 18mm") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 60;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 40;
+    } else {
+      pricePerSquareMeter = 35;
+    }
+  } else if (material === "Lesomal beli") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 20;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 10;
+    } else {
+      pricePerSquareMeter = 10;
+    }
+  } else if (material === "Iveral beli 8mm") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 58;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 38;
+    } else {
+      pricePerSquareMeter = 34;
+    }
+  } else if (material === "Iveral beli 25mm") {
+    if (length * width / 1000000 <= 0.25) {
+      pricePerSquareMeter = 70;
+    } else if (length * width / 1000000 <= 1) {
+      pricePerSquareMeter = 50;
+    } else {
+      pricePerSquareMeter = 40;
+    }
+  }
+  var side = "";
+  var totalPrice = (length * width / 1000000) * pricePerSquareMeter;
+  if (totalPrice < 10) {
+    totalPrice = 10;
+  }
+        if (leftChecked) {
+          totalPrice = totalPrice + (width * 2.5 /1000);
+          side = side + "Levi ";
+        }
+        if (rightChecked) {
+          totalPrice = totalPrice + (width * 2.5 /1000);
+          side = side + "Desni ";
+        }
+        if (topChecked) {
+          totalPrice = totalPrice + (length * 2.5 /1000);
+          side = side + "Zgoraj ";
+        }
+        if (bottomChecked) {
+          totalPrice = totalPrice + (length * 2.5 /1000);
+          side = side + "Spodaj ";
+        }
+        
+        shelves.push({
+          length: length,
+          width: width,
+          material: material,
+          side: side,
+          price: totalPrice
+        });
+        
+        displayShelves();
+        resetForm();
+      }
+      
+      function resetForm() {
+        document.getElementById("length").value = "";
+        document.getElementById("width").value = "";
+        document.getElementById("material").value = "Iveral beli 18mm";
+        document.getElementById("left").checked = false;
+        document.getElementById("right").checked = false;
+        document.getElementById("top").checked = false;
+        document.getElementById("bottom").checked = false;
+        document.getElementById("price").innerHTML = "";
+        updateSquare();
+      }
+      
+      function displayShelves() {
+        var shelvesList = "";
+        for (var i = 0; i < shelves.length; i++) {
+          shelvesList += "Dolžina: " + shelves[i].length + "mm, Širina: " + shelves[i].width + "mm, Material: " + shelves[i].material + ", ABS: " + shelves[i].side + ", Cena: " + shelves[i].price + "€<br>";
+        }
+        document.getElementById("shelves").innerHTML = shelvesList;
+      }
+// ]]></script>
+
+
+  
+<h3>Izračun cene lesene police</h3>
+<div>
+  
+<div>
+<div style="margin-left: 100px;"><span id="1lengthDm1"></span></div>
+<div style="display:inline-flex">
+<div style="margin-right: 10px;margin-top: 20px;"><span id="2widthDm2"></span></div>
+<div id="square" class="material-image"></div>
+</div>
+</div>
+<br>
+
+
+
+
+
+
+
+  
+
+<div>
+
+Dolžina (maks 2800mm): <input type="number" id="length" aria-label="Napiši mero" placeholder="Napiši dolžino...." oninput="updateSquare()" max="2800" onchange="checkLength()">mm (<span id="lengthCm"></span>) 
+
+<br>
+
+Širina ( maks. 2080mm ): <input type="number" id="width" placeholder="Napiši širino...." oninput="updateSquare()" max="2080" onchange="checkWidth()">mm (<span id="widthCm"></span>)
+<br>
+<script>
+function checkWidth() {
+  let width = document.getElementById("width").value;
+  if (width > 2080) {
+    alert("Širina ne sme biti večja od 2080mm");
+    document.getElementById("width").value = 2080;
+  }
+}
+function checkLength() {
+  let length = document.getElementById("length").value;
+  if (length > 2080) {
+    alert("Dolžina ne sme biti večja od 2800mm");
+    document.getElementById("length").value = 2800;
+  }
+}
+</script>
+
+
+
+
+<div id="result"></div>
+
+<script>
+document.getElementById("length").addEventListener("input", function() {
+  let length = document.getElementById("length").value;
+  document.getElementById("lengthCm").innerHTML = length / 10 + " cm";
+});
+</script>
+<script>
+document.getElementById("width").addEventListener("input", function() {
+  let width = document.getElementById("width").value;
+  document.getElementById("widthCm").innerHTML = width / 10 + " cm";
+});
+</script>
+<script>
+document.getElementById("length").addEventListener("input", function() {
+  let length = document.getElementById("length").value;
+  document.getElementById("1lengthDm1").innerHTML = length + " mm";
+});
+</script>
+<script>
+document.getElementById("width").addEventListener("input", function() {
+  let width = document.getElementById("width").value;
+  document.getElementById("2widthDm2").innerHTML = width + " mm";
+});
+</script>
+
+
+ Material:<select id="material" onchange="updateSquare()">
+<option value="Iveral beli 18mm">Iveral beli 18mm</option>
+<option value="Iveral hrast 18mm">Iveral hrast 18mm</option>
+<option value="Lesomal beli">Lesomal beli</option>
+<option value="Iveral beli 8mm">Iveral beli 8mm</option>
+<option value="Iveral beli 25mm">Iveral beli 25mm</option>
+</select><br><br> Na kateri strani police bo ABS:<br> 
+<div class="skupaj" style="display: flex;flex-direction: column-reverse;">
+<div class="vodoravni" style="gap:53px!important">
+
+<div>
+<input type="checkbox" id="left" value="left" onchange="updateSquare()">Levi<br> </div>
+<div>
+<input type="checkbox" id="right" value="right" onchange="updateSquare()">Desni</div>
+</div>
+<div class="vodoravni">
+<div>
+<input type="checkbox" id="top" value="top" onchange="updateSquare()">Zgoraj<br>
+</div> 
+<div>
+<input type="checkbox" id="bottom" value="bottom" onchange="updateSquare()">Spodaj</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+  
+  
+<br><br> <button onclick="calculatePrice()" class="button" style="background: #1e2d7d; color: white; margin-bottom: 20px;">Izračunaj ceno</button> <button onclick="saveShelf()" class="button" style="background: #ffc222; margin-bottom: 20px;">Shrani polico</button> <br><br>
+<p id="price" style="color:red;font-weight:700"> </p>
+
+<div class="tabela">
+<h3>Shranjene police:</h3>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<th>Dolžina</th>
+<th>Širina</th>
+<th>Material</th>
+<th>ABS</th>
+<th>Cena</th>
+<th>Izbriši</th>
+</tr>
+</tbody>
+<tbody id="shelves"></tbody>
+<tbody>
+<tr id="totalRow">
+<td colspan="5" style="text-align: right;">Skupna cena:</td>
+<td id="totalPrice"></td>
+</tr>
+</tbody>
+</table>
+<div style="display: flex; justify-content: space-between; flex-direction: row-reverse; margin-top: 20px;">
+<button id="deleteAllButton">Izbriši vse</button> <button class="button" style="background: #1e2d7d; color: white;" id="sendEmail">Pošlji na email</button>
+</div>
+<script>// <![CDATA[
+document.getElementById("sendEmail").addEventListener("click", function() {
+    var shelvesList = "Dolžina, Širina, Material, ABS, Cena\n";
+    for (var i = 0; i < shelves.length; i++) {
+      shelvesList += shelves[i].length + "mm, " + shelves[i].width + "mm, " + shelves[i].material + ", " + shelves[i].side + ", " + shelves[i].price + "€\n";
+    }
+    shelvesList += "Skupna cena: " + document.getElementById("totalPrice").innerHTML + "\n";
+    window.location.href = "mailto:?subject=Shranjene police&body=" + encodeURIComponent(shelvesList);
+  });
+// ]]></script>
+<script>// <![CDATA[
+window.addEventListener('load', function() {
+    // Retrieve the stored shelves data from local storage
+    var storedShelves = JSON.parse(localStorage.getItem('shelves')) || [];
+
+    // Update the shelves array and display the shelves
+    shelves = storedShelves;
+    displayShelves();
+  });
+
+  function displayShelves() {
+    var shelvesList = "";
+    var total = 0;
+    for (var i = 0; i < shelves.length; i++) {
+      shelvesList += "<tr><td>" + shelves[i].length + "mm</td><td>" + shelves[i].width + "mm</td><td>" + shelves[i].material + "</td><td>" + shelves[i].side + "</td><td>" + shelves[i].price + "€</td><td><button onclick='deleteShelf(" + i + ")'>X</button></td></tr>";
+      total += shelves[i].price;
+    }
+    document.getElementById("shelves").innerHTML = shelvesList;
+    document.getElementById("totalPrice").innerHTML = total + "€";
+
+    // Store the updated shelves data in local storage
+    localStorage.setItem('shelves', JSON.stringify(shelves));
+  }
+
+  function deleteShelf(index) {
+    shelves.splice(index, 1);
+    displayShelves();
+  }
+  document.getElementById("deleteAllButton").addEventListener("click", function() {
+    shelves = [];
+    displayShelves();
+  })
+// ]]></script>
+</div>
+</div>

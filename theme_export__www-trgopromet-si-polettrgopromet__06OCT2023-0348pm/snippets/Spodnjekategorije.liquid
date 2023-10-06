@@ -1,0 +1,124 @@
+<div id="lazyload">
+
+ <section data-section-id="{{ section.id }}" data-section-type="collection-list">
+  <div class="container" style="padding-top:5px;margin-top:-60px">
+
+    <div class="scroller">
+      <div class="scroller__inner">
+        <div class="no_border collection-list">
+          {%- for link in quick_links_menu.links -%}
+            {%- if link.active or link.child_active -%}
+              {%- for sub_link in link.links -%}
+                {%- if sub_link.object.image -%}
+                  <div class="kategorija-item">
+                  <a href="{{ sub_link.url }}" class="product-item__image-wrapper slika_ime_iskalnik_kategorije" >
+                        <img src="{{ sub_link.object.image | img_url: 'medium' }}" alt="{{ sub_link.title }}" class="product-item__image slika_iskalnik" loading="lazy">
+
+                        <p class="product-item__title text--strong link {% if sub_link.active %}is-active{% endif %}">{{ sub_link.title }}</p>
+                  </a>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+
+        <style>
+
+        .flickity-viewport {
+    min-height: 100px;
+}
+@media screen and (min-width: 1000px){
+
+        .kategorija-item {
+    width: 300px
+}
+        }
+
+        
+ a.product-item__image-wrapper.slika_ime_iskalnik_kategorije {
+    width: 275px;background:white
+}  
+.collection-list {
+    display: flex;
+}
+.product-item__image-wrapper {
+  position: relative;
+}
+
+.slika_ime_iskalnik_kategorije:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  z-index: 1;
+}
+
+  
+  button.flickity-button.flickity-prev-next-button.next {
+    opacity: 1;
+}
+  .no_border:before{border:unset}
+  .izdelek_kategorije {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;gap:5px 12px;
+}
+img.product-item__image.slika_iskalnik {
+    max-width: 82%;
+  max-height:80px;
+    
+}
+  a.product-item__image-wrapper.slika_ime_iskalnik_kategorije {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: solid 1px var(--border-color);
+}
+  
+  .izdelek_kategorije_mobi{
+  padding-left:5px;padding-right:5px;border:unset
+}
+  @media screen and (max-width: 641px){
+.product-item.izdelek_kategorije_mobi.\31 \/4--lap.\31 \/5--desk.\31 \/5--wide{
+  padding-left:5px;padding-right:5px;border:unset
+}
+
+    .no_border.product-list.product-list--vertical.product-list--scrollable {
+    width: 80%;
+}
+
+  }
+
+          p.product-item__title.text--strong.link.is-active {
+    color: var(--accent-color);
+}
+          header.card__header.card__header--tight {
+    border: solid 1px var(--border-color);
+}
+
+          .collection__description.expandable-content.expandable-content--expandable {
+    background: white;
+    border: solid 1px var(--border-color);
+    padding: 10px;
+    margin-top: 15px;
+}
+          button.expandable-content__toggle {
+    background: white;
+}
+
+
+.card {
+    margin-bottom: -1px;
+}
+
+</style>
+</div>
